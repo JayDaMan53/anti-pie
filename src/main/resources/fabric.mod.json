@@ -1,0 +1,26 @@
+{
+	"schemaVersion": 1,
+	"id": "anti-pie",
+	"version": "${version}",
+	"name": "Anti Pie",
+	"description": "Prevents hidden block entities from leaking through client rendering and the debug pie chart.",
+	"authors": [
+		"JayDaMan53"
+	],
+	"license": "CC0-1.0",
+	"icon": "assets/anti-pie/icon.png",
+	"environment": "server",
+	"entrypoints": {
+		"main": [
+			"jaydon.antipie.AntiPie"
+		]
+	},
+	"mixins": [
+		"anti-pie.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.19.3",
+		"minecraft": "~26.2",
+		"java": ">=25"
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"required": true,
+	"package": "jaydon.antipie.mixin",
+	"compatibilityLevel": "JAVA_25",
+	"mixins": [
+		"ServerCommonPacketListenerMixin",
+		"ServerPlayerMixin",
+		"accessor.ChunkDataAccessor",
+		"accessor.ChunkDataBlockEntityInfoAccessor",
+		"accessor.SectionBlocksUpdatePacketAccessor"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"overwrites": {
+		"requireAnnotations": true
+	}
+}

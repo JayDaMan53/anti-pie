@@ -1,0 +1,48 @@
+{
+  // Every listed type is removed from chunk and update packets while occluded.
+  // Remove an entry, comment out a line, or use a /* block comment */ to disable it.
+  "protectedBlockEntities": [
+    // Player/base-related block entities
+    "minecraft:chest",
+    "minecraft:trapped_chest",
+    "minecraft:ender_chest",
+    "minecraft:shulker_box",
+    "minecraft:beacon",
+    "minecraft:banner",
+    "minecraft:skull",
+    "minecraft:enchanting_table",
+    "minecraft:lectern",
+    "minecraft:campfire",
+    "minecraft:conduit",
+    "minecraft:sign",
+    "minecraft:hanging_sign",
+    "minecraft:decorated_pot",
+    "minecraft:shelf",
+    "minecraft:copper_golem_statue",
+
+    // Structural, natural, temporary, and technical block entities
+    "minecraft:mob_spawner",
+    "minecraft:piston",
+    "minecraft:end_portal",
+    "minecraft:end_gateway",
+    "minecraft:structure_block",
+    "minecraft:test_instance_block",
+    "minecraft:bell",
+    "minecraft:brushable_block",
+    "minecraft:trial_spawner",
+    "minecraft:vault"
+  ],
+
+  // Protected entities inside this radius are always sent, even through walls.
+  "alwaysVisibleDistance": 5.0,
+
+  // Total round-robin visibility checks allowed in each pass, per player.
+  "visibilityChecksPerPass": 32,
+
+  // Initial chunk visibility checks allowed per player per server tick.
+  "initialChunkChecksPerTick": 64,
+
+  // 20 ticks = one second. Moving players are checked more frequently.
+  "movingCheckIntervalTicks": 5,
+  "stationaryCheckIntervalTicks": 20
+}
