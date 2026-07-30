@@ -2,8 +2,8 @@
 	"schemaVersion": 1,
 	"id": "anti-pie",
 	"version": "${version}",
-	"name": "Anti Pie",
-	"description": "Prevents hidden block entities from leaking through client rendering and the debug pie chart.",
+	"name": "${name}",
+	"description": "${description}",
 	"authors": [
 		"JayDaMan53"
 	],
@@ -20,7 +20,7 @@
 	],
 	"depends": {
 		"fabricloader": ">=0.19.3",
-		"minecraft": "~26.2",
-		"java": ">=25"
+		"minecraft": "${minecraftVersion}",
+		"java": ">=${javaVersion}"
 	}
 }

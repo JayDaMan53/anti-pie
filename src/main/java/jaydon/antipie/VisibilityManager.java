@@ -45,7 +45,7 @@ public final class VisibilityManager {
 			if (!config.protects(blockEntityPacket.getType())) return packet;
 			PlayerState state = state(player);
 			BlockPos pos = blockEntityPacket.getPos();
-			if (isVisible(player.level(), player.getEyePosition(), pos, config.alwaysVisibleDistance)) {
+			if (isVisible(serverLevel(player), player.getEyePosition(), pos, config.alwaysVisibleDistance)) {
 				state.hidden.remove(pos.asLong());
 				state.visible.add(pos.asLong());
 				return packet;
@@ -61,7 +61,7 @@ public final class VisibilityManager {
 		}
 
 		if (packet instanceof ClientboundBlockUpdatePacket updatePacket) {
-			ServerLevel level = player.level();
+			ServerLevel level = serverLevel(player);
 			BlockPos pos = updatePacket.getPos();
 			BlockEntity entity = level.getBlockEntity(pos);
 			PlayerState existingState = PLAYERS.get(player);
@@ -115,7 +115,7 @@ public final class VisibilityManager {
 		state.ticksSinceCheck = 0;
 		state.lastCheckEye = eye;
 
-		ServerLevel level = player.level();
+		ServerLevel level = serverLevel(player);
 		int budget = config.visibilityChecksPerPass;
 		int hiddenBudget;
 		int visibleBudget;
@@ -194,7 +194,7 @@ public final class VisibilityManager {
 		PlayerState state = state(player);
 		int baseX = packet.getX() << 4;
 		int baseZ = packet.getZ() << 4;
-		ServerLevel level = player.level();
+		ServerLevel level = serverLevel(player);
 		Vec3 eye = player.getEyePosition();
 		state.resetInitialChunkBudget(level.getGameTime(), config.initialChunkChecksPerTick);
 
@@ -227,7 +227,7 @@ public final class VisibilityManager {
 		short[] positions = accessor.antiPie$getPositions();
 		BlockState[] states = accessor.antiPie$getStates();
 		ShortOpenHashSet allowed = new ShortOpenHashSet(positions.length);
-		ServerLevel level = player.level();
+		ServerLevel level = serverLevel(player);
 		Vec3 eye = player.getEyePosition();
 		PlayerState playerState = PLAYERS.get(player);
 
@@ -271,9 +271,9 @@ public final class VisibilityManager {
 	}
 
 	private static PlayerState state(ServerPlayer player) {
-		PlayerState state = PLAYERS.computeIfAbsent(player, ignored -> new PlayerState(player.level()));
+		PlayerState state = PLAYERS.computeIfAbsent(player, ignored -> new PlayerState(serverLevel(player)));
 		if (state.level != player.level()) {
-			state = new PlayerState(player.level());
+			state = new PlayerState(serverLevel(player));
 			PLAYERS.put(player, state);
 		}
 		return state;
@@ -289,7 +289,7 @@ public final class VisibilityManager {
 		// example, a chest at the bottom of a one-block hole). Test every exposed
 		// face so crossing an angle boundary cannot make a visible entity disappear.
 		for (Direction face : Direction.values()) {
-			if (level.getBlockState(target.relative(face)).isSolidRender()) continue;
+			if (isOccluding(level, target.relative(face))) continue;
 			if (clearFace(level, eye, target, face)) return true;
 		}
 		return false;
@@ -359,9 +359,21 @@ public final class VisibilityManager {
 			}
 			if (x == target.getX() && y == target.getY() && z == target.getZ()) return true;
 			cursor.set(x, y, z);
-			if (level.getBlockState(cursor).isSolidRender()) return false;
+			if (isOccluding(level, cursor)) return false;
 		}
 		return false;
+	}
+
+	private static boolean isOccluding(ServerLevel level, BlockPos pos) {
+		/*? if <1.21.11 {*/
+		/*return level.getBlockState(pos).isSolidRender(level, pos);*/
+		/*?} else {*/
+		return level.getBlockState(pos).isSolidRender();
+		/*?}*/
+	}
+
+	private static ServerLevel serverLevel(ServerPlayer player) {
+		return (ServerLevel) player.level();
 	}
 
 	private static int floor(double value) {

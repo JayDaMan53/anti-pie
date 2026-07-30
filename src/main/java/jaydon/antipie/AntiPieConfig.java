@@ -2,7 +2,6 @@ package jaydon.antipie;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.Strictness;
 import com.google.gson.stream.JsonReader;
 import net.fabricmc.loader.api.FabricLoader;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -26,10 +25,19 @@ public final class AntiPieConfig {
 			"minecraft:shulker_box", "minecraft:beacon", "minecraft:banner",
 			"minecraft:skull", "minecraft:enchanting_table", "minecraft:lectern",
 			"minecraft:campfire", "minecraft:conduit", "minecraft:sign",
-			"minecraft:hanging_sign", "minecraft:decorated_pot", "minecraft:shelf",
-			"minecraft:copper_golem_statue", "minecraft:mob_spawner", "minecraft:piston",
+			"minecraft:hanging_sign", "minecraft:decorated_pot",
+			/*? if >=1.21.11 {*/
+			"minecraft:shelf", "minecraft:copper_golem_statue",
+			/*?}*/
+			/*? if <26.2 {*/
+			/*"minecraft:bed",*/
+			/*?}*/
+			"minecraft:mob_spawner", "minecraft:piston",
 			"minecraft:end_portal", "minecraft:end_gateway", "minecraft:structure_block",
-			"minecraft:test_instance_block", "minecraft:bell", "minecraft:brushable_block",
+			/*? if >=1.21.11 {*/
+			"minecraft:test_instance_block",
+			/*?}*/
+			"minecraft:bell", "minecraft:brushable_block",
 			"minecraft:trial_spawner", "minecraft:vault"
 	);
 	private static volatile AntiPieConfig INSTANCE = defaults();
@@ -54,7 +62,7 @@ public final class AntiPieConfig {
 			if (!Files.exists(PATH)) writeDefaultConfig();
 			try (Reader reader = Files.newBufferedReader(PATH)) {
 				JsonReader jsonReader = new JsonReader(reader);
-				jsonReader.setStrictness(Strictness.LENIENT);
+				jsonReader.setLenient(true);
 				AntiPieConfig parsed = GSON.fromJson(jsonReader, AntiPieConfig.class);
 				if (parsed != null) loaded = parsed;
 			}

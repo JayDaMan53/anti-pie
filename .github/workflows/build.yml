@@ -26,5 +26,5 @@ jobs:
       - name: capture build artifacts
         uses: actions/upload-artifact@v7
         with:
-          name: Artifacts
-          path: build/libs/
+          name: anti-pie-all-versions
+          path: versions/*-fabric/build/libs/*.jar

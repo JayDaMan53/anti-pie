@@ -2,6 +2,7 @@
 
 .gradle/
 build/
+versions/*-fabric/
 out/
 classes/
 
