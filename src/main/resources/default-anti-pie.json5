@@ -16,24 +16,14 @@
     "minecraft:conduit",
     "minecraft:sign",
     "minecraft:hanging_sign",
-    "minecraft:decorated_pot",
-    /*? if >=1.21.11 {*/
-    "minecraft:shelf",
-    "minecraft:copper_golem_statue",
-    /*?}*/
-    /*? if <26.2 {*/
-    /*"minecraft:bed",*/
-    /*?}*/
+    "minecraft:decorated_pot",${versionSpecificPlayerBlockEntities}
 
     // Structural, natural, temporary, and technical block entities
     "minecraft:mob_spawner",
     "minecraft:piston",
     "minecraft:end_portal",
     "minecraft:end_gateway",
-    "minecraft:structure_block",
-    /*? if >=1.21.11 {*/
-    "minecraft:test_instance_block",
-    /*?}*/
+    "minecraft:structure_block",${testInstanceBlockEntity}
     "minecraft:bell",
     "minecraft:brushable_block",
     "minecraft:trial_spawner",

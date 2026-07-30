@@ -1,4 +1,5 @@
 import gg.meza.stonecraft.mod
+import org.gradle.language.jvm.tasks.ProcessResources
 
 plugins {
     id("gg.meza.stonecraft")
@@ -12,6 +13,16 @@ configurations.configureEach {
 }
 
 val requiredJava = if (stonecutter.current.parsed >= "26.1") 25 else 21
+val versionSpecificPlayerBlockEntities = buildList {
+    if (stonecutter.current.parsed >= "1.21.11") {
+        add("minecraft:shelf")
+        add("minecraft:copper_golem_statue")
+    }
+    if (stonecutter.current.parsed < "26.2") add("minecraft:bed")
+}.joinToString(separator = "", prefix = "") { "\n    \"$it\"," }
+val testInstanceBlockEntity = if (stonecutter.current.parsed >= "1.21.11") {
+    "\n    \"minecraft:test_instance_block\","
+} else ""
 
 modSettings {
     runDirectory = project.layout.buildDirectory.dir("run").get()
@@ -28,6 +39,15 @@ stonecutter {
         replace("ChunkPos.pack(", "ChunkPos.asLong(")
         replace("forgetPacket.pos().x()", "forgetPacket.pos().x")
         replace("forgetPacket.pos().z()", "forgetPacket.pos().z")
+    }
+}
+
+tasks.named<ProcessResources>("processResources") {
+    filesMatching("default-anti-pie.json5") {
+        expand(
+            "versionSpecificPlayerBlockEntities" to versionSpecificPlayerBlockEntities,
+            "testInstanceBlockEntity" to testInstanceBlockEntity
+        )
     }
 }
 
