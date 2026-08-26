@@ -32,4 +32,7 @@ stonecutter {
     create(rootProject)
 }
 
+include(":bukkit")
+project(":bukkit").projectDir = file("platforms/bukkit")
+
 rootProject.name = "anti-pie"

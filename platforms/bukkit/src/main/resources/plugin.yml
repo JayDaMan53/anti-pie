@@ -1,0 +1,17 @@
+name: AntiPie
+version: ${version}
+main: jaydon.antipie.bukkit.AntiPiePlugin
+api-version: '1.18'
+load: POSTWORLD
+depend: [packetevents]
+authors: [Jaydon]
+description: Prevents hidden block entities from leaking through the debug pie chart.
+commands:
+  antipie:
+    description: Reloads the Anti Pie configuration.
+    usage: /antipie reload
+    permission: antipie.reload
+permissions:
+  antipie.reload:
+    description: Allows reloading Anti Pie.
+    default: op

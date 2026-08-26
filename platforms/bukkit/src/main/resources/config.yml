@@ -1,0 +1,48 @@
+# Positions closer than this distance are always sent. This prevents visible
+# block entities from flickering when the player stands next to them.
+always-visible-distance: 5.0
+
+# Total round-robin visibility checks allowed in each pass, per player.
+visibility-checks-per-pass: 32
+
+# 20 ticks = one second. Moving players are checked more frequently.
+moving-check-interval-ticks: 5
+stationary-check-interval-ticks: 20
+
+# Structural entries can be disabled without editing the protected list.
+protect-structural-block-entities: true
+
+# Player-interest block entities. Entries unknown to an older Minecraft server
+# are harmless because matching happens against packet registry names.
+protected-block-entities:
+  - minecraft:beacon
+  - minecraft:chest
+  - minecraft:trapped_chest
+  - minecraft:ender_chest
+  - minecraft:shulker_box
+  - minecraft:enchanting_table
+  - minecraft:lectern
+  - minecraft:campfire
+  - minecraft:conduit
+  - minecraft:sign
+  - minecraft:hanging_sign
+  - minecraft:skull
+  - minecraft:banner
+  - minecraft:decorated_pot
+  - minecraft:shelf
+  - minecraft:copper_golem_statue
+
+# Structural block entities are combined with the list above when the toggle is
+# enabled. These are especially useful for making pie-chart searches unhelpful.
+structural-block-entities:
+  - minecraft:mob_spawner
+  - minecraft:piston
+  - minecraft:end_portal
+  - minecraft:end_gateway
+  - minecraft:structure_block
+  - minecraft:trial_spawner
+  - minecraft:vault
+  - minecraft:test_instance_block
+  - minecraft:bell
+  - minecraft:brushable_block
+  - minecraft:bed

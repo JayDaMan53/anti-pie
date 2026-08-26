@@ -27,4 +27,6 @@ jobs:
         uses: actions/upload-artifact@v7
         with:
           name: anti-pie-all-versions
-          path: versions/*-fabric/build/libs/*.jar
+          path: |
+            versions/*-fabric/build/libs/*.jar
+            platforms/bukkit/build/libs/*.jar
