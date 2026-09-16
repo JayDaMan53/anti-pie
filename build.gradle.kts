@@ -23,12 +23,21 @@ val versionSpecificPlayerBlockEntities = buildList {
 val testInstanceBlockEntity = if (stonecutter.current.parsed >= "1.21.11") {
     "\n    \"minecraft:test_instance_block\","
 } else ""
+val potentSulfurBlockEntity = if (stonecutter.current.parsed >= "26.2") {
+    "\n    \"minecraft:potent_sulfur\","
+} else ""
 
 modSettings {
     runDirectory = project.layout.buildDirectory.dir("run").get()
     testClientRunDirectory = project.layout.buildDirectory.dir("run-test-client").get()
     testServerRunDirectory = project.layout.buildDirectory.dir("run-test-server").get()
     variableReplacements = mapOf("javaVersion" to requiredJava)
+}
+
+afterEvaluate {
+    loom.runs.configureEach {
+        generateRunConfig.set(name == "server")
+    }
 }
 
 stonecutter {
@@ -40,13 +49,21 @@ stonecutter {
         replace("forgetPacket.pos().x()", "forgetPacket.pos().x")
         replace("forgetPacket.pos().z()", "forgetPacket.pos().z")
     }
+    replacements.string(current.parsed >= "26.3") {
+        replace("packet.getChunkData()", "packet.chunkData()")
+        replace("packet.getX()", "packet.x()")
+        replace("packet.getZ()", "packet.z()")
+        replace("int antiPie\$getPackedXZ();", "byte antiPie\$getPackedXZ();")
+        replace("int antiPie\$getY();", "short antiPie\$getY();")
+    }
 }
 
 tasks.named<ProcessResources>("processResources") {
     filesMatching("default-anti-pie.json5") {
         expand(
             "versionSpecificPlayerBlockEntities" to versionSpecificPlayerBlockEntities,
-            "testInstanceBlockEntity" to testInstanceBlockEntity
+            "testInstanceBlockEntity" to testInstanceBlockEntity,
+            "potentSulfurBlockEntity" to potentSulfurBlockEntity
         )
     }
 }

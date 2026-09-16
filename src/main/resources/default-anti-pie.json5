@@ -25,7 +25,7 @@
     "minecraft:end_gateway",
     "minecraft:structure_block",${testInstanceBlockEntity}
     "minecraft:bell",
-    "minecraft:brushable_block",
+    "minecraft:brushable_block",${potentSulfurBlockEntity}
     "minecraft:trial_spawner",
     "minecraft:vault"
   ],

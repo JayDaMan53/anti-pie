@@ -38,6 +38,9 @@ public final class AntiPieConfig {
 			"minecraft:test_instance_block",
 			/*?}*/
 			"minecraft:bell", "minecraft:brushable_block",
+			/*? if >=26.2 {*/
+			"minecraft:potent_sulfur",
+			/*?}*/
 			"minecraft:trial_spawner", "minecraft:vault"
 	);
 	private static volatile AntiPieConfig INSTANCE = defaults();

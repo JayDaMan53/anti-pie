@@ -35,6 +35,7 @@ protected-block-entities:
 # Structural block entities are combined with the list above when the toggle is
 # enabled. These are especially useful for making pie-chart searches unhelpful.
 structural-block-entities:
+  - minecraft:potent_sulfur
   - minecraft:mob_spawner
   - minecraft:piston
   - minecraft:end_portal

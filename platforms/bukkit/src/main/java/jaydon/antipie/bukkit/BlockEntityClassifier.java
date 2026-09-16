@@ -6,7 +6,7 @@ final class BlockEntityClassifier {
     private static final Set<String> DIRECT_TYPES = Set.of(
             "beacon", "chest", "trapped_chest", "ender_chest", "enchanting_table", "lectern",
             "conduit", "decorated_pot", "end_portal", "end_gateway", "structure_block", "jigsaw",
-            "trial_spawner", "vault", "test_instance_block", "bell", "shelf"
+            "trial_spawner", "vault", "test_instance_block", "bell", "shelf", "potent_sulfur"
     );
 
     private BlockEntityClassifier() {

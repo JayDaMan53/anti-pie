@@ -11,6 +11,6 @@ public class AntiPie implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		AntiPieConfig.load();
-		LOGGER.info("Anti Pie is filtering hidden block entities");
+		LOGGER.info("Anti Pie is active");
 	}
 }
